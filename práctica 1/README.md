@@ -1,4 +1,6 @@
 # Práctica 1. Conceptos fundamentales de PostgreSQL
+
+## Autor: *Tania Martín Rodríguez*
 ---
 
 # 1. Creación de la base de datos
