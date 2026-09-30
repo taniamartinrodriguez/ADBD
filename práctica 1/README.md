@@ -47,8 +47,7 @@ La práctica solicita dos usuarios y un rol:
 ## 2.1. Creación de `admin_biblio`
 Se crea el usuario con capacidad de iniciar sesión:
 ```sql
-CREATE ROLE admin_biblio
-WITH LOGIN PASSWORD 'adminpass';
+CREATE ROLE admin_biblio WITH LOGIN PASSWORD 'adminpass';
 ```
 
 ### Salida
@@ -58,8 +57,7 @@ CREATE ROLE
 
 Se le conceden todos los privilegios disponibles sobre la base de datos:
 ```sql
-GRANT ALL PRIVILEGES ON DATABASE biblioteca
-TO admin_biblio;
+GRANT ALL PRIVILEGES ON DATABASE biblioteca TO admin_biblio;
 ```
 
 ### Salida
@@ -72,8 +70,7 @@ GRANT
 ## 2.2. Creación de `usuario_biblio`
 Se crea el usuario que posteriormente tendrá únicamente permisos de lectura:
 ```sql
-CREATE ROLE usuario_biblio
-WITH LOGIN PASSWORD 'usuariopass';
+CREATE ROLE usuario_biblio WITH LOGIN PASSWORD 'usuariopass';
 ```
 
 ### Salida
@@ -83,8 +80,7 @@ CREATE ROLE
 
 Se permite que pueda conectarse a la base de datos:
 ```sql
-GRANT CONNECT ON DATABASE biblioteca
-TO usuario_biblio;
+GRANT CONNECT ON DATABASE biblioteca TO usuario_biblio;
 ```
 
 ### Salida
@@ -128,29 +124,9 @@ De esta forma, `usuario_biblio` heredará los permisos concedidos al rol `lector
 PostgreSQL almacena la información de sus roles en la vista de sistema `pg_roles`.
 Se utiliza:
 ```sql
-SELECT
-    rolname,
-    rolsuper,
-    rolcreaterole,
-    rolcreatedb,
-    rolcanlogin
+SELECT rolname, rolsuper, rolcreaterole, rolcreatedb, rolcanlogin
 FROM pg_roles
-ORDER BY rolname;
-```
-Para mostrar únicamente los usuarios y roles creados para la práctica:
-```sql
-SELECT
-    rolname,
-    rolsuper,
-    rolcreaterole,
-    rolcreatedb,
-    rolcanlogin
-FROM pg_roles
-WHERE rolname IN (
-    'admin_biblio',
-    'usuario_biblio',
-    'lectores'
-)
+WHERE rolname IN ('admin_biblio', 'usuario_biblio', 'lectores')
 ORDER BY rolname;
 ```
 
@@ -168,8 +144,7 @@ ORDER BY rolname;
 ## 2.6. Cambio de contraseña
 Se cambia la contraseña de `usuario_biblio`:
 ```sql
-ALTER ROLE usuario_biblio
-WITH PASSWORD '12345';
+ALTER ROLE usuario_biblio WITH PASSWORD '12345';
 ```
 
 ### Salida
@@ -202,6 +177,44 @@ REVOKE
 
 Una vez creadas las tablas, se concederá al rol `lectores` únicamente el permiso `SELECT`.
 De esta forma, `usuario_biblio`, al pertenecer a `lectores`, podrá consultar los datos pero no insertar, modificar ni eliminar registros.
+
+# 2.8. Comprobación de que `usuario_biblio` no puede eliminar datos
+Una vez creadas las tablas se conceden permisos de consulta sobre todas ellas:
+
+```sql
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO lectores;
+```
+
+### Salida
+
+```text
+GRANT
+```
+
+`usuario_biblio` pertenece al rol `lectores`:
+
+```sql
+GRANT lectores TO usuario_biblio;
+```
+
+El rol `lectores` únicamente tiene permisos `SELECT`.
+Por tanto, no se concede ningún permiso `DELETE`, `INSERT` ni `UPDATE`.
+Se puede consultar la pertenencia al rol mediante:
+
+```sql
+SELECT r.rolname AS usuario, m.rolname AS rol
+FROM pg_auth_members am
+JOIN pg_roles r ON r.oid = am.member
+JOIN pg_roles m ON m.oid = am.roleid
+WHERE r.rolname = 'usuario_biblio';
+```
+
+### Resultado esperado
+```text
+     usuario     |    rol
+-----------------+----------
+ usuario_biblio  | lectores
+```
 
 ---
 
@@ -615,9 +628,7 @@ La vista devuelve información combinada de las tres tablas.
 Se concede permiso de consulta a `usuario_biblio`:
 
 ```sql
-GRANT SELECT
-ON vista_libros_prestados
-TO usuario_biblio;
+GRANT SELECT ON vista_libros_prestados TO usuario_biblio;
 ```
 
 ### Salida
@@ -637,8 +648,7 @@ Se crea mediante `CREATE FUNCTION`:
 ```sql
 CREATE OR REPLACE FUNCTION libros_de_autor(nombre_autor TEXT)
 RETURNS TABLE (titulo TEXT, año_publicacion INTEGER)
-LANGUAGE SQL
-AS $$
+LANGUAGE SQL AS $$
     SELECT l.titulo, l.año_publicacion
     FROM libros l
     JOIN autores a ON l.id_autor = a.id_autor
@@ -701,7 +711,7 @@ LIMIT 3;
 Desde `psql` se utiliza el comando `\copy`.
 
 ```sql
-\copy libros TO 'libros.csv' WITH (FORMAT CSV, HEADER);
+\copy libros TO '/tmp/libros.csv' WITH (FORMAT CSV, HEADER);
 ```
 
 ### Salida esperada
@@ -740,9 +750,7 @@ CREATE TEMP TABLE autores_importacion (nombre TEXT,nacionalidad TEXT);
 
 Después se importa el archivo:
 ```sql
-\copy autores_importacion(nombre, nacionalidad)
-FROM 'autores_nuevos.csv'
-WITH (FORMAT CSV, HEADER);
+\copy autores_importacion(nombre, nacionalidad) FROM 'autores_nuevos.csv' WITH (FORMAT CSV, HEADER);
 ```
 
 ### Salida esperada
@@ -774,148 +782,3 @@ ORDER BY id_autor;
 ```
 
 ---
-
-# 11. Comprobación de permisos del rol `lectores`
-Una vez creadas las tablas se conceden permisos de consulta sobre todas ellas:
-
-```sql
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO lectores;
-```
-
-### Salida
-
-```text
-GRANT
-```
-
-Para que las futuras tablas creadas por `postgres` también reciban automáticamente este permiso:
-
-```sql
-ALTER DEFAULT PRIVILEGES
-FOR ROLE postgres
-IN SCHEMA public
-GRANT SELECT ON TABLES TO lectores;
-```
-
-### Salida
-
-```text
-ALTER DEFAULT PRIVILEGES
-```
-
-Se puede comprobar mediante:
-
-```sql
-SELECT grantee, table_name, privilege_type
-FROM information_schema.role_table_grants
-WHERE grantee = 'lectores'
-ORDER BY table_name;
-```
-
-El resultado debe mostrar `SELECT` para las tablas de la base de datos.
-
----
-
-# 12. Comprobación de que `usuario_biblio` no puede eliminar datos
-
-`usuario_biblio` pertenece al rol `lectores`:
-
-```sql
-GRANT lectores TO usuario_biblio;
-```
-
-El rol `lectores` únicamente tiene permisos `SELECT`.
-
-Por tanto, no se concede ningún permiso `DELETE`, `INSERT` ni `UPDATE`.
-
-Se puede consultar la pertenencia al rol mediante:
-
-```sql
-SELECT r.rolname AS usuario, m.rolname AS rol
-FROM pg_auth_members am
-JOIN pg_roles r ON r.oid = am.member
-JOIN pg_roles m ON m.oid = am.roleid
-WHERE r.rolname = 'usuario_biblio';
-```
-
-### Resultado esperado
-```text
-     usuario     |    rol
------------------+----------
- usuario_biblio  | lectores
-```
-
----
-
-# 13. Resumen de la estructura creada
-La base de datos queda organizada de la siguiente manera:
-```text
-biblioteca
-│
-├── autores
-│   ├── id_autor (PK)
-│   ├── nombre
-│   └── nacionalidad
-│
-├── libros
-│   ├── id_libro (PK)
-│   ├── titulo
-│   ├── año_publicacion
-│   └── id_autor (FK → autores.id_autor)
-│
-└── prestamos
-    ├── id_prestamo (PK)
-    ├── id_libro (FK → libros.id_libro)
-    ├── fecha_prestamo
-    ├── fecha_devolucion
-    └── usuario_prestatario
-```
-
-La relación entre `libros` y `prestamos` utiliza:
-
-```sql
-ON DELETE CASCADE
-```
-
-por lo que al eliminar un libro también se eliminan sus préstamos asociados.
-
----
-
-# 14. Usuarios y permisos
-La configuración final de usuarios es:
-
-| Usuario/Rol | LOGIN | Función |
-|---|---:|---|
-| `admin_biblio` | Sí | Administración de la base de datos |
-| `usuario_biblio` | Sí | Usuario de lectura |
-| `lectores` | No | Rol de lectura |
-
-`usuario_biblio` pertenece a `lectores`, por lo que hereda sus permisos.
-El rol `lectores` dispone de:
-
-```text
-SELECT
-```
-
-sobre las tablas de la base de datos.
-No dispone de:
-
-```text
-INSERT
-UPDATE
-DELETE
-```
-
----
-
-# 15. Conclusión
-
-Durante la práctica se han aplicado las operaciones fundamentales de administración y manejo de datos en PostgreSQL.
-
-Se ha creado la base de datos `biblioteca` y se han configurado diferentes usuarios y roles para controlar el acceso a la información. También se han creado las tablas `autores`, `libros` y `prestamos`, estableciendo sus claves primarias y foráneas.
-
-Posteriormente se han introducido datos de prueba y se han realizado consultas utilizando `JOIN`, `GROUP BY`, `HAVING`, `COUNT` y `LIMIT`. También se ha comprobado el funcionamiento de `ON DELETE CASCADE` al eliminar un libro con préstamos asociados.
-
-Por último, se ha creado una vista, una función para consultar los libros de un autor y se han realizado operaciones de exportación e importación mediante archivos CSV.
-
-Todos los comandos se han ejecutado utilizando PostgreSQL desde la terminal mediante `psql`.
