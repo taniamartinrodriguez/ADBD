@@ -33,34 +33,25 @@
 
 #### **Zona**
 * **`Nombre_Zona`** *(Clave Parcial / Discriminador)*: Nombre descriptivo del área dentro de un vivero.
-  * *Dominio:* Cadena de texto (ej. `"Zona Exterior"`, `"Almacén Principal"`, `"Invernadero A"`).
 * **`Georreferenciación`** *(Atributo Compuesto)*: Coordenadas específicas donde se sitúa la zona dentro del vivero. Se compone de:
-  * **`Latitud`**: Grados decimales (ej. `28.487510`).
-  * **`Longitud`**: Grados decimales (ej. `-16.315800`).
+  * **`Latitud`**.
+  * **`Longitud`**.
 * **`Productividad`** *(Atributo Derivado)*: Índice global de rendimiento de la zona a lo largo del tiempo, calculado a partir de la productividad obtenida por los empleados asignados a dicha zona.
-  * *Dominio:* Número real o porcentaje de `0.0` a `100.0` (ej. `87.5%`).
 
 #### **Producto**
 * **`Id_Producto`** *(Clave Primaria)*: Identificador único de cada artículo del catálogo.
-  * *Dominio:* Cadena alfanumérica (ej. `PROD-1045`, `PLA-0089`).
 
 #### **Empleado**
 * **`Id_Empleado`** *(Clave Primaria)*: Código interno o documento de identidad que identifica de manera única al trabajador.
-  * *Dominio:* Cadena alfanumérica de 9 caracteres / DNI (ej. `45892312X` o `EMP-042`).
 
 #### **Cliente_Plus**
 * **`Id_Cliente`** *(Clave Primaria)*: Identificador único del socio en el programa *Tajinaste Plus*.
-  * *Dominio:* Cadena alfanumérica (ej. `CPLUS-00154`, `43123456Z`).
 * **`Volumen_compras_mensual`** *(Atributo Derivado)*: Suma del importe o cantidad de pedidos realizados por el cliente en el mes en curso.
-  * *Dominio:* Número decimal positivo expresado en euros (ej. `245.50 €`, `1200.00 €`).
 * **`Bonificaciones`**: Beneficios o descuentos asignados al cliente en función de su volumen de compras mensual.
-  * *Dominio:* Cadena de texto o porcentaje de descuento (ej. `"15% descuento próximo pedido"`, `"Bono 20€"`).
-* **`Categoría`**: Nivel de fidelización o clasificación asociada dentro del catálogo/programa[cite: 3].
-  * *Dominio:* Enumerado / Cadena de texto (ej. `"Estándar"`, `"Oro"`, `"Platino"` o preferencia `"Jardinería"`, `"Decoración"`).
+* **`Categoría`**: Nivel de fidelización o clasificación asociada dentro del catálogo/programa.
 
 #### **Pedido**+
 * **`Id_Pedido`** *(Clave Primaria)*: Código único de registro de cada compra realizada[cite: 3].
-  * *Dominio:* Cadena alfanumérica secuencial (ej. `PED-2026-00891`).
 
 ---
 
@@ -68,16 +59,13 @@
 
 #### **Relación `STOCK_ASIGNADO`**
 * **`Cantidad_disponible`**: Número de unidades físicas de un producto concreto disponibles en una zona determinada.
-  * *Dominio:* Número entero mayor o igual a cero `>= 0` (ej. `0`, `45`, `250` unidades).
 
 #### **Relación `TRABAJA_EN`**
 * **`Tarea`**: Puesto o labor específica que desempeña el empleado durante su asignación a esa zona.
-  * *Dominio:* Cadena de caracteres (ej. `"Mantenimiento de riego"`, `"Control de inventario"`, `"Atención al público"`).
 * **`Productividad`**: Evaluación del rendimiento del empleado en dicho puesto y zona durante el periodo asignado.
-  * *Dominio:* Valor numérico o escala del `0` al `100` (ej. `92.0` puntos).
 * **`Fechas`** *(Atributo Compuesto)*: Rango temporal en el que el empleado estuvo destinado en la zona, permitiendo conservar el seguimiento histórico. Se divide en:
-  * **`Fecha_ini`**: Fecha de inicio del destino. *Dominio:* Fecha en formato `AAAA-MM-DD` (ej. `2026-03-01`).
-  * **`Fecha_fin`**: Fecha de finalización del destino. *Dominio:* Fecha en formato `AAAA-MM-DD` o `NULL` si sigue activo (ej. `2026-06-30`).
+  * **`Fecha_ini`**: Fecha de inicio del destino.
+  * **`Fecha_fin`**: Fecha de finalización del destino.
 
 ---
 
@@ -107,15 +95,3 @@
   * **Descripción:** Permite controlar qué empleado es responsable de cada pedido de cara a medir su capacidad para lograr objetivos de venta.
   * **Cardinalidad Global:** **1:N** (Uno a Muchos).
   * **Detalle de participación:** Un empleado puede gestionar desde ninguno hasta múltiples pedidos `(0,N)`[cite: 3], pero cada pedido tiene única y exclusivamente un empleado responsable `(1,1)`.
-
----
-
-## 4. Restricciones Semánticas y de Integridad
-
-Para garantizar que el modelo cumpla fielmente todas las reglas de negocio del escenario planteado que no pueden expresarse únicamente mediante cardinalidades gráficas, se establecen las siguientes restricciones semánticas:
-
-1. **Exclusividad temporal de destino en empleados:** Un empleado nunca puede tener dos destinos simultáneos en una misma época del año. Por tanto, para un mismo `Id_Empleado` en la relación `TRABAJA_EN`, los intervalos formados por `[Fecha_ini, Fecha_fin]` no pueden solaparse en el tiempo.
-2. **Coherencia temporal en fechas de destino:** En cualquier instancia de la relación `TRABAJA_EN`, el atributo `Fecha_fin` (cuando no sea nulo) debe ser estrictamente posterior o igual a `Fecha_ini` (`Fecha_fin >= Fecha_ini`).
-3. **Clave primaria compuesta de la entidad débil `Zona`:** Al ser una entidad débil por identificación, la clave primaria completa de `Zona` se forma concatenando la clave primaria del vivero (`Id_Vivero`) y su discriminador (`Nombre_Zona`).
-4. **Identificación del histórico en `TRABAJA_EN`:** Para que un mismo empleado pueda volver a ser destinado a la misma zona en diferentes épocas del año sin duplicar la clave en la relación `N:M`, el atributo `Fecha_ini` forma parte de la clave primaria de la relación junto con `Id_Empleado`, `Id_Vivero` y `Nombre_Zona`.
-5. **Control de pedidos tras el ingreso:** Todos los pedidos registrados en la relación `REALIZA` deben tener una fecha de realización igual o posterior a la fecha de ingreso del `Cliente_Plus` en el programa de fidelización.
