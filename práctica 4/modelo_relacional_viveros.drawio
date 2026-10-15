@@ -1,0 +1,198 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Modelo relacional Viveros" id="0">
+    <mxGraphModel dx="2464" dy="401" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1470" pageHeight="1110" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VIVERO" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=0;html=1;fillColor=#DCEAFE;swimlaneFillColor=#FFFFFF;strokeColor=#64748B;fontColor=#1E3A5F;fontSize=14;" value="VIVERO" vertex="1">
+          <mxGeometry height="109" width="290" x="-100" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="VIVERO_id_vivero" parent="VIVERO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK  id_vivero : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="VIVERO_latitud" parent="VIVERO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       latitud : NUMERIC(9,6)" vertex="1">
+          <mxGeometry height="27" width="290" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="VIVERO_longitud" parent="VIVERO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       longitud : NUMERIC(9,6)" vertex="1">
+          <mxGeometry height="27" width="290" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="ZONA" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=0;html=1;fillColor=#DCEAFE;swimlaneFillColor=#FFFFFF;strokeColor=#64748B;fontColor=#1E3A5F;fontSize=14;" value="ZONA" vertex="1">
+          <mxGeometry height="136" width="290" x="280" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZONA_id_vivero" parent="ZONA" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK, FK  id_vivero : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ZONA_nombre_zona" parent="ZONA" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK  nombre_zona : VARCHAR(80)" vertex="1">
+          <mxGeometry height="27" width="290" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="ZONA_latitud" parent="ZONA" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       latitud : NUMERIC(9,6)" vertex="1">
+          <mxGeometry height="27" width="290" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="ZONA_longitud" parent="ZONA" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       longitud : NUMERIC(9,6)" vertex="1">
+          <mxGeometry height="27" width="290" y="109" as="geometry" />
+        </mxCell>
+        <mxCell id="STOCK_ASIGNADO" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=0;html=1;fillColor=#DCEAFE;swimlaneFillColor=#FFFFFF;strokeColor=#64748B;fontColor=#1E3A5F;fontSize=14;" value="STOCK_ASIGNADO" vertex="1">
+          <mxGeometry height="136" width="290" x="705" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="STOCK_ASIGNADO_id_vivero" parent="STOCK_ASIGNADO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK, FK  id_vivero : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="STOCK_ASIGNADO_nombre_zona" parent="STOCK_ASIGNADO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK, FK  nombre_zona : VARCHAR(80)" vertex="1">
+          <mxGeometry height="27" width="290" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="STOCK_ASIGNADO_id_producto" parent="STOCK_ASIGNADO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK, FK  id_producto : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="STOCK_ASIGNADO_cantidad_disponible" parent="STOCK_ASIGNADO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       cantidad_disponible : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="109" as="geometry" />
+        </mxCell>
+        <mxCell id="PRODUCTO" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=0;html=1;fillColor=#DCEAFE;swimlaneFillColor=#FFFFFF;strokeColor=#64748B;fontColor=#1E3A5F;fontSize=14;" value="PRODUCTO" vertex="1">
+          <mxGeometry height="82" width="290" x="1080" y="107" as="geometry" />
+        </mxCell>
+        <mxCell id="PRODUCTO_id_producto" parent="PRODUCTO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK  id_producto : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="PRODUCTO_nombre" parent="PRODUCTO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       nombre : VARCHAR(120)" vertex="1">
+          <mxGeometry height="27" width="290" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="EMPLEADO" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=0;html=1;fillColor=#DCEAFE;swimlaneFillColor=#FFFFFF;strokeColor=#64748B;fontColor=#1E3A5F;fontSize=14;" value="EMPLEADO" vertex="1">
+          <mxGeometry height="136" width="290" x="310" y="376.5" as="geometry" />
+        </mxCell>
+        <mxCell id="EMPLEADO_id_empleado" parent="EMPLEADO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK  id_empleado : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="EMPLEADO_nombre" parent="EMPLEADO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       nombre : VARCHAR(80)" vertex="1">
+          <mxGeometry height="27" width="290" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="EMPLEADO_apellido" parent="EMPLEADO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       apellido : VARCHAR(120)" vertex="1">
+          <mxGeometry height="27" width="290" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="EMPLEADO_dni" parent="EMPLEADO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="UQ  dni : VARCHAR(12)" vertex="1">
+          <mxGeometry height="27" width="290" y="109" as="geometry" />
+        </mxCell>
+        <mxCell id="TRABAJA_EN" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=0;html=1;fillColor=#DCEAFE;swimlaneFillColor=#FFFFFF;strokeColor=#64748B;fontColor=#1E3A5F;fontSize=14;" value="TRABAJA_EN" vertex="1">
+          <mxGeometry height="217" width="290" x="-140" y="338" as="geometry" />
+        </mxCell>
+        <mxCell id="TRABAJA_EN_id_empleado" parent="TRABAJA_EN" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK, FK  id_empleado : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="TRABAJA_EN_id_vivero" parent="TRABAJA_EN" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK, FK  id_vivero : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="TRABAJA_EN_nombre_zona" parent="TRABAJA_EN" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK, FK  nombre_zona : VARCHAR(80)" vertex="1">
+          <mxGeometry height="27" width="290" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="TRABAJA_EN_fecha_ini" parent="TRABAJA_EN" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK  fecha_ini : DATE" vertex="1">
+          <mxGeometry height="27" width="290" y="109" as="geometry" />
+        </mxCell>
+        <mxCell id="TRABAJA_EN_fecha_fin" parent="TRABAJA_EN" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       fecha_fin : DATE" vertex="1">
+          <mxGeometry height="27" width="290" y="136" as="geometry" />
+        </mxCell>
+        <mxCell id="TRABAJA_EN_tarea" parent="TRABAJA_EN" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       tarea : VARCHAR(120)" vertex="1">
+          <mxGeometry height="27" width="290" y="163" as="geometry" />
+        </mxCell>
+        <mxCell id="TRABAJA_EN_puesto" parent="TRABAJA_EN" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       puesto : VARCHAR(120)" vertex="1">
+          <mxGeometry height="27" width="290" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="PEDIDO" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=0;html=1;fillColor=#DCEAFE;swimlaneFillColor=#FFFFFF;strokeColor=#64748B;fontColor=#1E3A5F;fontSize=14;" value="PEDIDO" vertex="1">
+          <mxGeometry height="136" width="290" x="690" y="376.5" as="geometry" />
+        </mxCell>
+        <mxCell id="PEDIDO_id_pedido" parent="PEDIDO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK  id_pedido : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="PEDIDO_fecha" parent="PEDIDO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       fecha : DATE" vertex="1">
+          <mxGeometry height="27" width="290" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="PEDIDO_id_cliente" parent="PEDIDO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="FK  id_cliente : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="PEDIDO_id_empleado" parent="PEDIDO" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="FK  id_empleado : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="109" as="geometry" />
+        </mxCell>
+        <mxCell id="CONTIENE" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=0;html=1;fillColor=#DCEAFE;swimlaneFillColor=#FFFFFF;strokeColor=#64748B;fontColor=#1E3A5F;fontSize=14;" value="CONTIENE" vertex="1">
+          <mxGeometry height="109" width="290" x="1080" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="CONTIENE_id_pedido" parent="CONTIENE" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK, FK  id_pedido : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="CONTIENE_id_producto" parent="CONTIENE" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK, FK  id_producto : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="CONTIENE_cantidad" parent="CONTIENE" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       cantidad : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="CLIENTE" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=0;html=1;fillColor=#DCEAFE;swimlaneFillColor=#FFFFFF;strokeColor=#64748B;fontColor=#1E3A5F;fontSize=14;" value="CLIENTE" vertex="1">
+          <mxGeometry height="109" width="290" x="365" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="CLIENTE_id_cliente" parent="CLIENTE" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK  id_cliente : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="CLIENTE_nombre" parent="CLIENTE" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       nombre : VARCHAR(120)" vertex="1">
+          <mxGeometry height="27" width="290" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="CLIENTE_correo" parent="CLIENTE" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="UQ  correo : VARCHAR(254)" vertex="1">
+          <mxGeometry height="27" width="290" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="CLIENTE_PLUS" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=0;html=1;fillColor=#DCEAFE;swimlaneFillColor=#FFFFFF;strokeColor=#64748B;fontColor=#1E3A5F;fontSize=14;" value="CLIENTE_PLUS" vertex="1">
+          <mxGeometry height="82" width="290" x="365" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="CLIENTE_PLUS_id_cliente" parent="CLIENTE_PLUS" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK, FK  id_cliente : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="CLIENTE_PLUS_fecha_ingreso" parent="CLIENTE_PLUS" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       fecha_ingreso : DATE" vertex="1">
+          <mxGeometry height="27" width="290" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="BONIFICACION" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=0;html=1;fillColor=#DCEAFE;swimlaneFillColor=#FFFFFF;strokeColor=#64748B;fontColor=#1E3A5F;fontSize=14;" value="BONIFICACION" vertex="1">
+          <mxGeometry height="109" width="290" x="880" y="766.5" as="geometry" />
+        </mxCell>
+        <mxCell id="BONIFICACION_id_bonificacion" parent="BONIFICACION" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="PK  id_bonificacion : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="BONIFICACION_id_cliente" parent="BONIFICACION" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=1;fillColor=#FFFFFF;fontColor=#1F2937;" value="FK  id_cliente : INTEGER" vertex="1">
+          <mxGeometry height="27" width="290" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="BONIFICACION_bonificacion" parent="BONIFICACION" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=8;overflow=hidden;fontSize=12;fontStyle=0;fillColor=#FFFFFF;fontColor=#1F2937;" value="       bonificacion : NUMERIC(10,2)" vertex="1">
+          <mxGeometry height="27" width="290" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="relation_1" edge="1" parent="1" source="VIVERO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERoneToMany;endFill=0;strokeColor=#64748B;fontColor=#475569;fontSize=11;labelBackgroundColor=#FFFFFF;" target="ZONA" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation_2" edge="1" parent="1" source="ZONA" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERoneToMany;endFill=0;strokeColor=#64748B;fontColor=#475569;fontSize=11;labelBackgroundColor=#FFFFFF;" target="STOCK_ASIGNADO" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation_3" edge="1" parent="1" source="PRODUCTO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERoneToMany;endFill=0;strokeColor=#64748B;fontColor=#475569;fontSize=11;labelBackgroundColor=#FFFFFF;" target="STOCK_ASIGNADO" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation_4" edge="1" parent="1" source="EMPLEADO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERoneToMany;endFill=0;strokeColor=#64748B;fontColor=#475569;fontSize=11;labelBackgroundColor=#FFFFFF;" target="TRABAJA_EN" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation_5" edge="1" parent="1" source="ZONA_longitud" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERoneToMany;endFill=0;strokeColor=#64748B;fontColor=#475569;fontSize=11;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="TRABAJA_EN" value="1 : N">
+          <mxGeometry relative="1" x="0.1898" as="geometry">
+            <Array as="points">
+              <mxPoint x="425" y="280" />
+              <mxPoint x="-45" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="relation_6" edge="1" parent="1" source="CLIENTE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERoneToMany;endFill=0;strokeColor=#64748B;fontColor=#475569;fontSize=11;labelBackgroundColor=#FFFFFF;" target="CLIENTE_PLUS" value="1 : 0..1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation_7" edge="1" parent="1" source="CLIENTE_PLUS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERoneToMany;endFill=0;strokeColor=#64748B;fontColor=#475569;fontSize=11;labelBackgroundColor=#FFFFFF;" target="BONIFICACION" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation_8" edge="1" parent="1" source="CLIENTE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERoneToMany;endFill=0;strokeColor=#64748B;fontColor=#475569;fontSize=11;labelBackgroundColor=#FFFFFF;" target="PEDIDO" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation_9" edge="1" parent="1" source="EMPLEADO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERoneToMany;endFill=0;strokeColor=#64748B;fontColor=#475569;fontSize=11;labelBackgroundColor=#FFFFFF;" target="PEDIDO" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation_10" edge="1" parent="1" source="PEDIDO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERoneToMany;endFill=0;strokeColor=#64748B;fontColor=#475569;fontSize=11;labelBackgroundColor=#FFFFFF;" target="CONTIENE" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation_11" edge="1" parent="1" source="PRODUCTO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERoneToMany;endFill=0;strokeColor=#64748B;fontColor=#475569;fontSize=11;labelBackgroundColor=#FFFFFF;" target="CONTIENE" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
