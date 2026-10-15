@@ -12,6 +12,7 @@ CREATE TABLE vivero (
  latitud NUMERIC(9,6) NOT NULL CHECK (latitud BETWEEN -90 AND 90),
  longitud NUMERIC(9,6) NOT NULL CHECK (longitud BETWEEN -180 AND 180)
 );
+
 CREATE TABLE zona (
  id_vivero INTEGER NOT NULL,
  nombre_zona VARCHAR(80) NOT NULL,
@@ -20,27 +21,32 @@ CREATE TABLE zona (
  PRIMARY KEY (id_vivero,nombre_zona),
  FOREIGN KEY (id_vivero) REFERENCES vivero(id_vivero) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 CREATE TABLE producto (
  id_producto SERIAL PRIMARY KEY,
  nombre VARCHAR(120) NOT NULL
 );
+
 CREATE TABLE empleado (
  id_empleado SERIAL PRIMARY KEY,
  nombre VARCHAR(80) NOT NULL,
  apellido VARCHAR(120) NOT NULL,
  dni VARCHAR(12) NOT NULL UNIQUE
 );
+
 CREATE TABLE cliente (
  id_cliente SERIAL PRIMARY KEY,
  nombre VARCHAR(120) NOT NULL,
  correo VARCHAR(254) NOT NULL UNIQUE
 );
+
 -- IS_A: el subtipo reutiliza la clave del supertipo
 CREATE TABLE cliente_plus (
  id_cliente INTEGER PRIMARY KEY,
  fecha_ingreso DATE NOT NULL,
  FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 -- Atributo multivaluado Bonificaciones -> tabla separada.
 -- Sin mes asociado en el ER: cada fila es una bonificación individual.
 CREATE TABLE bonificacion (
@@ -49,6 +55,7 @@ CREATE TABLE bonificacion (
  bonificacion NUMERIC(10,2) NOT NULL CHECK (bonificacion >= 0),
  FOREIGN KEY (id_cliente) REFERENCES cliente_plus(id_cliente) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 -- Relación N:M STOCK_ASIGNADO con atributo cantidad_disponible
 CREATE TABLE stock_asignado (
  id_vivero INTEGER NOT NULL,
@@ -59,7 +66,7 @@ CREATE TABLE stock_asignado (
  FOREIGN KEY (id_vivero,nombre_zona) REFERENCES zona(id_vivero,nombre_zona) ON UPDATE CASCADE ON DELETE CASCADE,
  FOREIGN KEY (id_producto) REFERENCES producto(id_producto) ON UPDATE CASCADE ON DELETE RESTRICT
 );
--- TRABAJA_EN es BINARIA en el ER definitivo; Tarea y Puesto son atributos de la relación.
+
 CREATE TABLE trabaja_en (
  id_empleado INTEGER NOT NULL,
  id_vivero INTEGER NOT NULL,
@@ -73,7 +80,7 @@ CREATE TABLE trabaja_en (
  FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado) ON UPDATE CASCADE ON DELETE CASCADE,
  FOREIGN KEY (id_vivero,nombre_zona) REFERENCES zona(id_vivero,nombre_zona) ON UPDATE CASCADE ON DELETE RESTRICT
 );
--- REALIZA vincula Cliente general (no únicamente Plus) con Pedido.
+
 CREATE TABLE pedido (
  id_pedido SERIAL PRIMARY KEY,
  fecha DATE NOT NULL,
@@ -82,7 +89,7 @@ CREATE TABLE pedido (
  FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente) ON UPDATE CASCADE ON DELETE RESTRICT,
  FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado) ON UPDATE CASCADE ON DELETE RESTRICT
 );
--- CONTIENE N:M con atributo Cantidad
+
 CREATE TABLE contiene (
  id_pedido INTEGER NOT NULL,
  id_producto INTEGER NOT NULL,
