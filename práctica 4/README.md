@@ -1,16 +1,16 @@
 # Práctica 4. Modelo relacional de Viveros
 
-**Alumno/a:** Tania Martín Rodríguez  
+**Alumna:** Tania Martín Rodríguez  
 **Asignatura:** Administración y Diseño de Bases de Datos  
 **Curso:** 2026-2027
 
 ## Modelo entidad-relación
 
-![Modelo entidad-relación de Viveros](modelo_er.png)
+![Modelo entidad-relación de Viveros](modelo_er.drawio.png)
 
 ## Modelo relacional
 
-![Modelo relacional de Viveros](modelo_relacional.png)
+![Modelo relacional de Viveros](modelo_relacional.drawio.png)
 
 ## Salida de un SELECT por cada tabla
 
